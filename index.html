@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Will You Be My Valentine? 💘</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -22,33 +23,33 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.92);
       padding: 28px;
-      border-radius: 25px;
+      border-radius: 26px;
       text-align: center;
       box-shadow: 0 30px 60px rgba(0,0,0,0.25);
       max-width: 360px;
-      animation: popIn 0.6s ease;
+      animation: pop 0.6s ease;
     }
 
-    .photos {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 12px;
+    @keyframes pop {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
-    .photos img {
-      width: 90px;
-      height: 90px;
+    .photo {
+      width: 100%;
+      max-height: 220px;
       object-fit: cover;
-      border-radius: 15px;
+      border-radius: 18px;
+      margin-bottom: 14px;
     }
 
     .gif {
-      width: 180px;
-      border-radius: 15px;
-      margin-bottom: 10px;
+      width: 200px;
+      border-radius: 18px;
+      margin-bottom: 12px;
+      display: none;
     }
 
     h1 {
@@ -89,16 +90,13 @@
 </head>
 <body>
 
-<div class="card" id="card">
-  <div class="photos">
-    <img src="photo1.jpg" alt="You">
-    <img src="photo2.jpg" alt="Her">
-  </div>
+<div class="card" id="home">
+  <img src="us.jpg" alt="Us" class="photo">
 
-  <img id="gif" class="gif" src="" style="display:none;" />
+  <img id="gif" class="gif" />
 
   <h1 id="title">Will you be my Valentine? 💖</h1>
-  <p id="message">I promise love, laughs, and stealing your food.</p>
+  <p id="message">I promise love, laughter, and stealing your food.</p>
 
   <div class="buttons">
     <button id="yes" onclick="yesClicked()">Yes 🥰</button>
@@ -110,12 +108,20 @@
   let noCount = 0;
 
   const sadGifs = [
-    "https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif",
-    "https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif",
-    "https://media.giphy.com/media/l2QDM9Jnim1YVILXa/giphy.gif"
+    "sad/sad1.gif",
+    "sad/sad2.gif",
+    "sad/sad3.gif"
   ];
 
-  const happyDogGif = "https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif";
+  const happyGifs = [
+    "happy/happy1.gif",
+    "happy/happy2.gif",
+    "happy/happy3.gif"
+  ];
+
+  function randomGif(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
 
   function noClicked() {
     noCount++;
@@ -125,41 +131,28 @@
     const gif = document.getElementById("gif");
 
     gif.style.display = "block";
-    gif.src = sadGifs[Math.min(noCount - 1, sadGifs.length - 1)];
+    gif.src = randomGif(sadGifs);
 
     if (noCount === 1) {
       title.innerText = "Wait… what? 😳";
-      message.innerText = "Are you sure? Look how sad this is 🥺";
+      message.innerText = "Are you sure? Look how sad I am 🥺";
     } 
     else if (noCount === 2) {
       title.innerText = "Okay but please 😭";
       message.innerText = "I’ll give you hugs, snacks, and all my love.";
     } 
     else if (noCount === 3) {
-      title.innerText = "My heart can’t take this 💔";
-      message.innerText = "Last chance. Say yes and save me.";
+      title.innerText = "My heart is breaking 💔";
+      message.innerText = "Last chance. Say yes and save it.";
     } 
     else {
-      document.body.innerHTML = `
-        <div style="
-          height:100vh;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          font-family:'Poppins',sans-serif;
-          background:linear-gradient(135deg,#ffafbd,#ffc3a0);
-          text-align:center;
-          padding:20px;
-        ">
-          <h1 style="color:#ff4d6d;">
-            Sorry, you’re stuck 😌💘
-          </h1>
-        </div>
-      `;
+      showFinal("Sorry, you’re stuck 😌💘");
     }
   }
 
   function yesClicked() {
+    const gif = randomGif(happyGifs);
+
     document.body.innerHTML = `
       <div style="
         height:100vh;
@@ -172,13 +165,38 @@
         padding:20px;
       ">
         <div>
-          <img src="${happyDogGif}" style="width:220px;border-radius:20px;margin-bottom:15px;">
-          <h1 style="color:#ff4d6d;">YAYYY 💕</h1>
-          <p>You said yes!!! I’m the happiest human alive 🐶💖</p>
+          <img src="${gif}" style="width:230px;border-radius:20px;margin-bottom:15px;">
+          <h1 style="color:#ff4d6d;">SHE SAID YES 💕</h1>
+          <p>Best Valentine ever 🥰</p>
         </div>
       </div>
     `;
+
+    history.pushState({}, "");
   }
+
+  function showFinal(text) {
+    document.body.innerHTML = `
+      <div style="
+        height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-family:'Poppins',sans-serif;
+        background:linear-gradient(135deg,#ffafbd,#ffc3a0);
+        text-align:center;
+        padding:20px;
+      ">
+        <h1 style="color:#ff4d6d;">${text}</h1>
+      </div>
+    `;
+
+    history.pushState({}, "");
+  }
+
+  window.onpopstate = function () {
+    location.reload();
+  };
 </script>
 
 </body>
