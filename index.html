@@ -39,14 +39,15 @@
 
     .photo {
       width: 100%;
-      max-height: 220px;
-      object-fit: cover;
+      height: 220px;
+      object-fit: contain;
+      background: #f7f7f7;
       border-radius: 18px;
       margin-bottom: 14px;
     }
 
     .gif {
-      width: 200px;
+      width: 220px;
       border-radius: 18px;
       margin-bottom: 12px;
       display: none;
@@ -90,17 +91,19 @@
 </head>
 <body>
 
-<div class="card" id="home">
-  <img src="us.jpg" alt="Us" class="photo">
+<div class="card">
+  <!-- HOME PAGE PHOTO (ONLY SHOWN INITIALLY) -->
+  <img src="us.jpg" alt="Us" class="photo" id="homePhoto">
 
-  <img id="gif" class="gif" />
+  <!-- GIF AREA -->
+  <img id="gif" class="gif">
 
-  <h1 id="title">Will you be my Valentine? 💖</h1>
-  <p id="message">I promise love, laughter, and stealing your food.</p>
+  <h1 id="title">Will you be my Valentine? 💖🥺</h1>
+  <p id="message">I promise love, laughter, and happiness forever!</p>
 
   <div class="buttons">
     <button id="yes" onclick="yesClicked()">Yes 🥰</button>
-    <button id="no" onclick="noClicked()">No 🙈</button>
+    <button id="no" onclick="noClicked()">No 😢</button>
   </div>
 </div>
 
@@ -119,19 +122,25 @@
     "happy/happy3.gif"
   ];
 
-  function randomGif(arr) {
+  function randomFrom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function hideHomePhoto() {
+    const photo = document.getElementById("homePhoto");
+    if (photo) photo.style.display = "none";
   }
 
   function noClicked() {
     noCount++;
+    hideHomePhoto();
 
     const title = document.getElementById("title");
     const message = document.getElementById("message");
     const gif = document.getElementById("gif");
 
     gif.style.display = "block";
-    gif.src = randomGif(sadGifs);
+    gif.src = randomFrom(sadGifs);
 
     if (noCount === 1) {
       title.innerText = "Wait… what? 😳";
@@ -139,19 +148,20 @@
     } 
     else if (noCount === 2) {
       title.innerText = "Okay but please 😭";
-      message.innerText = "I’ll give you hugs, snacks, and all my love.";
+      message.innerText = "I’ll give you hugs, cuddles, and all my love.";
     } 
     else if (noCount === 3) {
       title.innerText = "My heart is breaking 💔";
       message.innerText = "Last chance. Say yes and save it.";
     } 
     else {
-      showFinal("Sorry, you’re stuck 😌💘");
+      showFinal("HEHE Sorry, you’re stuck 😌💘");
     }
   }
 
   function yesClicked() {
-    const gif = randomGif(happyGifs);
+    hideHomePhoto();
+    const gif = randomFrom(happyGifs);
 
     document.body.innerHTML = `
       <div style="
@@ -165,7 +175,7 @@
         padding:20px;
       ">
         <div>
-          <img src="${gif}" style="width:230px;border-radius:20px;margin-bottom:15px;">
+          <img src="${gif}" style="width:240px;border-radius:20px;margin-bottom:15px;">
           <h1 style="color:#ff4d6d;">SHE SAID YES 💕</h1>
           <p>Best Valentine ever 🥰</p>
         </div>
@@ -194,6 +204,7 @@
     history.pushState({}, "");
   }
 
+  // BACK BUTTON → HOME PAGE
   window.onpopstate = function () {
     location.reload();
   };
