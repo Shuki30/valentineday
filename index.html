@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Will You Be My Valentine? 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.9);
+      padding: 28px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+      max-width: 360px;
+      animation: popIn 0.6s ease;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .photos {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .photos img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    button {
+      padding: 12px 22px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <div class="photos">
+    <img src="photo1.jpg" alt="You">
+    <img src="photo2.jpg" alt="Her">
+  </div>
+
+  <h1 id="title">Will you be my Valentine? 💖</h1>
+  <p id="message">I promise lots of love, laughs and annoying you forever.</p>
+
+  <div class="buttons">
+    <button id="yes" onclick="yesClicked()">Yes 🥰</button>
+    <button id="no" onclick="noClicked()">No 🙈</button>
+  </div>
+</div>
+
+<script>
+  let noCount = 0;
+
+  function noClicked() {
+    noCount++;
+
+    const title = document.getElementById("title");
+    const message = document.getElementById("message");
+
+    if (noCount === 1) {
+      title.innerText = "Wait… what? 😳";
+      message.innerText = "Are you sure? I even made this cute website for you 🥺";
+    } 
+    else if (noCount === 2) {
+      title.innerText = "Okay but listen 😭";
+      message.innerText = "I’ll buy you snacks, hugs, and unlimited love. Please?";
+    } 
+    else if (noCount === 3) {
+      title.innerText = "This is getting serious 😔";
+      message.innerText = "My heart is fragile. Say yes and save it 💔➡️💖";
+    } 
+    else {
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-family:'Poppins',sans-serif;
+          background:linear-gradient(135deg,#ffafbd,#ffc3a0);
+          text-align:center;
+          padding:20px;
+        ">
+          <h1 style="color:#ff4d6d;">
+            Sorry, you’re stuck 😌💘<br>
+            Refreshing won’t help either 😉
+          </h1>
+        </div>
+      `;
+    }
+  }
+
+  function yesClicked() {
+    document.body.innerHTML = `
+      <div style="
+        height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-family:'Poppins',sans-serif;
+        background:linear-gradient(135deg,#ffafbd,#ffc3a0);
+        text-align:center;
+        padding:20px;
+      ">
+        <div>
+          <h1 style="color:#ff4d6d;">Best decision ever 💕</h1>
+          <p>You’re officially my Valentine 🥰<br>I love you.</p>
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+</body>
+</html>
