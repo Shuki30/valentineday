@@ -77,14 +77,15 @@
   let noCount = 0;
 
   const sadGifs = [
-    "gifs/sad1.gif",
-    "gifs/sad2.gif",
-    "gifs/sad3.gif"
+    "sad/sad1.gif",
+    "sad/sad2.gif",
+    "sad/sad3.gif"
   ];
 
   const happyGifs = [
-    "gifs/happy1.gif",
-    "gifs/happy2.gif"
+    "happy/happy1.gif",
+    "happy/happy2.gif",
+    "happy/happy3.gif"
   ];
 
   function rand(arr) {
@@ -94,7 +95,7 @@
   function renderHome() {
     noCount = 0;
     document.getElementById("app").innerHTML = `
-      <img src="images/us.jpg" class="photo">
+      <img src="us.jpg" class="photo">
       <h1>Will you be my Valentine? 💘</h1>
       <p>I promise hugs, laughs, and unlimited love.</p>
       <div class="btns">
