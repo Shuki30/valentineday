@@ -31,16 +31,11 @@
       animation: popIn 0.6s ease;
     }
 
-    @keyframes popIn {
-      from { transform: scale(0.85); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
     .photos {
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .photos img {
@@ -50,15 +45,21 @@
       border-radius: 15px;
     }
 
+    .gif {
+      width: 180px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+    }
+
     h1 {
       color: #ff4d6d;
       font-weight: 600;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     p {
       font-size: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .buttons {
@@ -94,8 +95,10 @@
     <img src="photo2.jpg" alt="Her">
   </div>
 
+  <img id="gif" class="gif" src="" style="display:none;" />
+
   <h1 id="title">Will you be my Valentine? 💖</h1>
-  <p id="message">I promise lots of love, laughs and annoying you forever.</p>
+  <p id="message">I promise love, laughs, and stealing your food.</p>
 
   <div class="buttons">
     <button id="yes" onclick="yesClicked()">Yes 🥰</button>
@@ -106,23 +109,35 @@
 <script>
   let noCount = 0;
 
+  const sadGifs = [
+    "https://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif",
+    "https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif",
+    "https://media.giphy.com/media/l2QDM9Jnim1YVILXa/giphy.gif"
+  ];
+
+  const happyDogGif = "https://media.giphy.com/media/v6aOjy0Qo1fIA/giphy.gif";
+
   function noClicked() {
     noCount++;
 
     const title = document.getElementById("title");
     const message = document.getElementById("message");
+    const gif = document.getElementById("gif");
+
+    gif.style.display = "block";
+    gif.src = sadGifs[Math.min(noCount - 1, sadGifs.length - 1)];
 
     if (noCount === 1) {
       title.innerText = "Wait… what? 😳";
-      message.innerText = "Are you sure? I even made this cute website for you 🥺";
+      message.innerText = "Are you sure? Look how sad this is 🥺";
     } 
     else if (noCount === 2) {
-      title.innerText = "Okay but listen 😭";
-      message.innerText = "I’ll buy you snacks, hugs, and unlimited love. Please?";
+      title.innerText = "Okay but please 😭";
+      message.innerText = "I’ll give you hugs, snacks, and all my love.";
     } 
     else if (noCount === 3) {
-      title.innerText = "This is getting serious 😔";
-      message.innerText = "My heart is fragile. Say yes and save it 💔➡️💖";
+      title.innerText = "My heart can’t take this 💔";
+      message.innerText = "Last chance. Say yes and save me.";
     } 
     else {
       document.body.innerHTML = `
@@ -137,8 +152,7 @@
           padding:20px;
         ">
           <h1 style="color:#ff4d6d;">
-            Sorry, you’re stuck 😌💘<br>
-            Refreshing won’t help either 😉
+            Sorry, you’re stuck 😌💘
           </h1>
         </div>
       `;
@@ -158,8 +172,9 @@
         padding:20px;
       ">
         <div>
-          <h1 style="color:#ff4d6d;">Best decision ever 💕</h1>
-          <p>You’re officially my Valentine 🥰<br>I love you.</p>
+          <img src="${happyDogGif}" style="width:220px;border-radius:20px;margin-bottom:15px;">
+          <h1 style="color:#ff4d6d;">YAYYY 💕</h1>
+          <p>You said yes!!! I’m the happiest human alive 🐶💖</p>
         </div>
       </div>
     `;
